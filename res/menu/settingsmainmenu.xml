@@ -1,0 +1,12 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/SettingsMenuResetProfiles"
+        android:title="@string/settings_menu_reset_profiles" />
+
+    <item
+        android:id="@+id/SettingsMenuPriorityToggle"
+        android:title="@string/settings_menu_lower_priority" />
+
+</menu>

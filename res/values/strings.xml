@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Plasma</string>
+    <string name="wallpaper_name">Plasma</string>
+    <string name="wallpaper_description">A configurable plasma generator.</string>
+    <string name="settings_activity_title">Plasma Settings</string>
+
+    <string name="button_ok">OK</string>
+    <string name="button_effect_library">Effect Library</string>
+    <string name="button_effect_builder">Effect Builder</string>
+    <string name="button_load_defaults">Load Defaults</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+
+    <string name="label_size">size:</string>
+    <string name="label_x_move">x move speed:</string>
+    <string name="label_y_move">y move speed:</string>
+    <string name="label_x_pulse">x pulse speed:</string>
+    <string name="label_y_pulse">y pulse speed:</string>
+    <string name="label_color">color:</string>
+    <string name="label_intensity">intensity:</string>
+    <string name="label_wavelength">wavelength:</string>
+
+    <string name="checkbox_low_priority">low priority</string>
+
+    <string name="context_menu_title">Modify effect</string>
+    <string name="context_menu_overwrite">Overwrite</string>
+    <string name="context_menu_rename">Rename</string>
+    <string name="context_menu_delete">Delete</string>
+
+    <string name="settings_menu_lower_priority">Lower priority</string>
+    <string name="settings_menu_raise_priority">Raise priority</string>
+    <string name="settings_menu_reset_profiles">Reset Effect Library</string>
+
+    <string name="invalid_name_title">Bad name</string>
+    <string name="invalid_name_message">An effect name cannot be blank.</string>
+
+    <string name="name_effect_title">New effect name</string>
+
+    <string name="confirm_reset_title">Confirm reset</string>
+    <string name="confirm_reset_message">Are you sure you want to reset to the default settings?</string>
+    <string name="confirm_delete_title">Confirm delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete \"%s?\"</string>
+    <string name="confirm_replace_title">Confirm replace</string>
+    <string name="confirm_replace_message">Are you sure you want to replace \"%s\" with your current settings?</string>
+    <string name="confirm_reset_profiles_title">Confirm reset</string>
+    <string name="confirm_reset_profiles_message">Are you sure you want to reset to the default Effect Library?\n\nThis will erase all of your personal effects, and cannot be undone.</string>
+
+    <string name="library_init_title">Please wait</string>
+    <string name="library_init_message">Initializing effect library.</string>
+
+    <string name="pref_size">pref_size</string>
+    <string name="pref_red_amount">pref_red_amount</string>
+    <string name="pref_red_intensity">pref_red_intensity</string>
+    <string name="pref_red_wavelength">pref_red_wavelength</string>
+    <string name="pref_green_amount">pref_green_amount</string>
+    <string name="pref_green_intensity">pref_green_intensity</string>
+    <string name="pref_green_wavelength">pref_green_wavelength</string>
+    <string name="pref_blue_amount">pref_blue_amount</string>
+    <string name="pref_blue_intensity">pref_blue_intensity</string>
+    <string name="pref_blue_wavelength">pref_blue_wavelength</string>
+    <string name="pref_speed1">pref_speed1</string>
+    <string name="pref_speed2">pref_speed2</string>
+    <string name="pref_speed3">pref_speed3</string>
+    <string name="pref_speed4">pref_speed4</string>
+
+    <string name="pref_built_in_profiles_added">pref_built_in_profiles_added</string>
+    <string name="pref_cotton_candy_added">pref_cotton_candy_added</string>
+    <string name="pref_low_priority">pref_low_priority</string>
+</resources>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1.0" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="8dp" >
+
+        <!-- top buttons -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" >
+
+            <Button
+                android:id="@+id/ResetButton"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/button_load_defaults" />
+
+            <Button
+                android:id="@+id/SaveButton1"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/button_save" />
+
+        <!-- end top buttons -->
+        </LinearLayout>
+
+        <!-- space -->
+        <View style="@style/HorizontalSettingsSpacer" />
+
+        <!-- pallette -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <!-- pallette.color -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <TextView
+                    style="@style/SettingsTextView"
+                    android:text="@string/label_color" />
+
+                <SeekBar
+                    android:id="@+id/BlueAmountSeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <SeekBar
+                    android:id="@+id/GreenAmountSeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <SeekBar
+                    android:id="@+id/RedAmountSeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+            <!-- end pallette.color -->
+            </LinearLayout>
+
+            <!-- vspace -->
+            <View style="@style/VerticalSettingsSpacer" />
+
+            <!-- pallette.intensity -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0">
+
+                <TextView
+                    style="@style/SettingsTextView"
+                    android:text="@string/label_intensity" />
+
+                <SeekBar
+                    android:id="@+id/BlueIntensitySeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <SeekBar
+                    android:id="@+id/GreenIntensitySeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <SeekBar
+                    android:id="@+id/RedIntensitySeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+            <!-- end pallette intensity -->
+            </LinearLayout>
+
+            <!-- vspace -->
+            <View style="@style/VerticalSettingsSpacer" />
+
+            <!-- pallette.wavelength -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <TextView
+                    style="@style/SettingsTextView"
+                    android:text="@string/label_wavelength" />
+
+                <SeekBar
+                    android:id="@+id/BlueWavelengthSeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <SeekBar
+                    android:id="@+id/GreenWavelengthSeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <SeekBar
+                    android:id="@+id/RedWavelengthSeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+            <!-- end pallette.wavelength -->
+            </LinearLayout>
+
+        <!-- end pallette -->
+        </LinearLayout>
+
+        <!-- space -->
+        <View style="@style/HorizontalSettingsSpacer" />
+
+        <!-- movement -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <!-- movement.x -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <TextView
+                    style="@style/SettingsTextView"
+                    android:text="@string/label_x_move" />
+
+                <SeekBar
+                    android:id="@+id/Speed2SeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="4dp"
+                    android:layout_weight="1.0"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    style="@style/SettingsTextView"
+                    android:text="@string/label_x_pulse" />
+
+                <SeekBar
+                    android:id="@+id/Speed1SeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="4dp"
+                    android:layout_weight="1.0" />
+
+            <!-- end movement.x -->
+            </LinearLayout>
+
+            <!-- space -->
+            <View style="@style/VerticalSettingsSpacer" />
+
+            <!-- movement.y -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <TextView
+                    style="@style/SettingsTextView"
+                    android:text="@string/label_y_move" />
+
+                <SeekBar
+                    android:id="@+id/Speed4SeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="4dp"
+                    android:layout_weight="1.0"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    style="@style/SettingsTextView"
+                    android:text="@string/label_y_pulse" />
+
+                <SeekBar
+                    android:id="@+id/Speed3SeekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="4dp"
+                    android:layout_weight="1.0" />
+
+            <!-- end movement.y -->
+            </LinearLayout>
+
+        <!-- end movement -->
+        </LinearLayout>
+
+        <!-- space -->
+        <View style="@style/VerticalSettingsSpacer" />
+
+        <!-- size -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="4dp" >
+
+            <TextView
+                style="@style/SettingsTextView"
+                android:text="@string/label_size"
+                android:layout_marginTop="4dp" />
+
+            <SeekBar
+                android:id="@+id/SizeSeekBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+
+        <!-- end size -->
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.clangen.gfx.plasma"
+    android:versionCode="30"
+    android:versionName="0.9.7"
+    android:installLocation="auto" >
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+
+        <service
+            android:label="@string/wallpaper_name"
+            android:name=".PlasmaService"
+            android:permission="android.permission.BIND_WALLPAPER">
+
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/plasma" />
+
+        </service>
+
+        <activity
+            android:label="@string/settings_activity_title"
+            android:name=".SettingsActivity"
+            android:theme="@android:style/Theme.Translucent"
+            android:exported="true" />
+
+    </application>
+
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8" />
+    <uses-feature android:name="android.software.live_wallpaper" />
+
+</manifest>

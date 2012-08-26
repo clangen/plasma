@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <SurfaceView
+        android:id="@+id/SurfaceView"
+           android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ViewFlipper android:id="@+id/ViewFlipper"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0" >
+
+            <include
+                layout="@layout/settingsvalues" />
+
+            <include
+                layout="@layout/settingsprofiles" />
+
+        </ViewFlipper>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="@drawable/buttonbar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/OKButton"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:layout_marginTop="6dp"
+                android:text="@string/button_ok" />
+
+            <Button
+                android:id="@+id/LibraryButton"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:layout_marginTop="6dp"
+                android:text="@string/button_effect_library" />
+
+            <Button
+                android:id="@+id/BuilderButton"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:layout_marginTop="6dp"
+                android:visibility="gone"
+                android:text="@string/button_effect_builder" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
