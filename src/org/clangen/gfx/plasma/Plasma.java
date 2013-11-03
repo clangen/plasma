@@ -155,22 +155,22 @@ public class Plasma {
                         long start = System.currentTimeMillis();
                         final Canvas canvas = mSurfaceHolder.lockCanvas();
 
-                        try {
-	                        if (canvas != null) {
-	                        	sPixelBuffer.rewind(); /* necessary!! the copy call
-	                        	below will not rewind, so trying to copy again will
-	                        	cause an exception */
+                        if (canvas != null) {
+                            try {
+                            	sPixelBuffer.rewind(); /* necessary!! the copy call
+                            	below will not rewind, so trying to copy again will
+                            	cause an exception */
 
-	                            nativeNextFrame(sPixelBuffer, mWidth, mHeight);
-	                            sBitmap.copyPixelsFromBuffer(sPixelBuffer);
-	                            canvas.drawBitmap(sBitmap, 0.0f, 0.0f, null);
-	                        }
-                        }
-                        catch(Throwable ex) {
-                            Log.i(TAG, "failed to draw frame");
-                        }
-                        finally {
-                        	mSurfaceHolder.unlockCanvasAndPost(canvas);                        	
+                                nativeNextFrame(sPixelBuffer, mWidth, mHeight);
+                                sBitmap.copyPixelsFromBuffer(sPixelBuffer);
+                                canvas.drawBitmap(sBitmap, 0.0f, 0.0f, null);
+                            }
+                            catch(Throwable ex) {
+                                Log.i(TAG, "failed to draw frame");
+                            }
+                            finally {
+                            	mSurfaceHolder.unlockCanvasAndPost(canvas);                        	
+                            }                        	
                         }
                         
                         long elapsed = System.currentTimeMillis() - start;
@@ -189,8 +189,6 @@ public class Plasma {
             finally {
                 mStopLatch.countDown();
             }
-            
-        	Log.d(TAG, "ENDING RUNLOOP");
         }
 
         private void cacheDimensions() {
@@ -213,7 +211,7 @@ public class Plasma {
                 }
             }
 
-            Log.i(TAG, "flipping orientation!");
+//            Log.i(TAG, "flipping orientation!");
 
             if (sBitmap != null) {
                 sBitmap.recycle();
@@ -225,13 +223,10 @@ public class Plasma {
         }
 
         private void checkedInitNativeBuffer() {
-//            DisplayMetrics dm = mPlasma.mDisplayMetrics;
-//            int newBufferSize = (dm.widthPixels * dm.heightPixels * 4);
-
         	int newBufferSize = mWidth * mHeight * 4;
         	Log.i(TAG, "buffer size: " + newBufferSize);
             if ((sPixelBuffer == null) || (sPixelBufferSize != newBufferSize)) {
-                Log.i(TAG, "creating native buffer!");
+//                Log.i(TAG, "creating native buffer!");
 
                 if (newBufferSize > 0) {
                     sPixelBufferSize = newBufferSize;
