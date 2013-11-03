@@ -151,17 +151,28 @@ public class Plasma {
                         return;
                     }
 
-                    while ( ! mCancel) {
+                    while (!mCancel) {
                         long start = System.currentTimeMillis();
                         final Canvas canvas = mSurfaceHolder.lockCanvas();
 
-                        if (canvas != null) {
-                            nativeNextFrame(sPixelBuffer, mWidth, mHeight);
-                            sBitmap.copyPixelsFromBuffer(sPixelBuffer);
-                            canvas.drawBitmap(sBitmap, 0.0f, 0.0f, null);
-                            mSurfaceHolder.unlockCanvasAndPost(canvas);
-                        }
+                        try {
+	                        if (canvas != null) {
+	                        	sPixelBuffer.rewind(); /* necessary!! the copy call
+	                        	below will not rewind, so trying to copy again will
+	                        	cause an exception */
 
+	                            nativeNextFrame(sPixelBuffer, mWidth, mHeight);
+	                            sBitmap.copyPixelsFromBuffer(sPixelBuffer);
+	                            canvas.drawBitmap(sBitmap, 0.0f, 0.0f, null);
+	                        }
+                        }
+                        catch(Throwable ex) {
+                            Log.i(TAG, "failed to draw frame");
+                        }
+                        finally {
+                        	mSurfaceHolder.unlockCanvasAndPost(canvas);                        	
+                        }
+                        
                         long elapsed = System.currentTimeMillis() - start;
                         long delay = MILLIS_PER_FRAME - elapsed;
 
@@ -178,6 +189,8 @@ public class Plasma {
             finally {
                 mStopLatch.countDown();
             }
+            
+        	Log.d(TAG, "ENDING RUNLOOP");
         }
 
         private void cacheDimensions() {
@@ -212,9 +225,11 @@ public class Plasma {
         }
 
         private void checkedInitNativeBuffer() {
-            DisplayMetrics dm = mPlasma.mDisplayMetrics;
-            int newBufferSize = (dm.widthPixels * dm.heightPixels * 4);
+//            DisplayMetrics dm = mPlasma.mDisplayMetrics;
+//            int newBufferSize = (dm.widthPixels * dm.heightPixels * 4);
 
+        	int newBufferSize = mWidth * mHeight * 4;
+        	Log.i(TAG, "buffer size: " + newBufferSize);
             if ((sPixelBuffer == null) || (sPixelBufferSize != newBufferSize)) {
                 Log.i(TAG, "creating native buffer!");
 

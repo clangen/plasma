@@ -2,8 +2,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.clangen.gfx.plasma"
-    android:versionCode="30"
-    android:versionName="0.9.7"
+    android:versionCode="31"
+    android:versionName="1.0.0"
     android:installLocation="auto" >
 
     <application
@@ -33,7 +33,7 @@
 
     </application>
 
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="10" />
     <uses-feature android:name="android.software.live_wallpaper" />
 
 </manifest>
