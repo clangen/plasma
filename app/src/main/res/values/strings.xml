@@ -14,10 +14,11 @@
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
 
-    <string name="label_size">size:</string>
+    <string name="label_size">base size:</string>
     <string name="label_movement">movement:</string>
+    <string name="label_shape">shape:</string>
     <string name="label_x_move_modifier_1">x modifier 1</string>
-    <string name="label_y_move_modifier_1">1 modifier 1</string>
+    <string name="label_y_move_modifier_1">y modifier 1</string>
     <string name="label_x_move_modifier_2">x modifier 2</string>
     <string name="label_y_move_modifier_2">y modifier 2</string>
     <string name="label_color">brightness:</string>
@@ -70,6 +71,10 @@
     <string name="pref_speed2">pref_speed2</string>
     <string name="pref_speed3">pref_speed3</string>
     <string name="pref_speed4">pref_speed4</string>
+    <string name="pref_x_shape_modifier_1">pref_x_shape_modifier_1</string>
+    <string name="pref_x_shape_modifier_2">pref_x_shape_modifier_2</string>
+    <string name="pref_y_shape_modifier_1">pref_y_shape_modifier_1</string>
+    <string name="pref_y_shape_modifier_2">pref_y_shape_modifier_2</string>
 
     <string name="pref_built_in_profiles_added">pref_built_in_profiles_added</string>
     <string name="pref_cotton_candy_added">pref_cotton_candy_added</string>

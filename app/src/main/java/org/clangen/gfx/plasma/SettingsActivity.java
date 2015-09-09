@@ -40,7 +40,7 @@ public class SettingsActivity extends Activity {
     public static final String ACTION_SETTINGS_FINISHED = "org.clangen.gfx.plasma.ACTION_SETTINGS_FINISHED";
     public static final String ACTION_SETTINGS_PRIORITY_CHANGED = "org.clangen.gfx.plasma.ACTION_PRIORITY_CHANGED";
 
-    private static final int VIEW_STATE_BUILDER = 0;
+    private static final int VIEW_STATE_EDITOR = 0;
     private static final int VIEW_STATE_LIBRARY = 1;
 
     private static final int MIN_SIZE = 1;
@@ -49,7 +49,8 @@ public class SettingsActivity extends Activity {
     private static final int MIN_MOVE = 1;
     private static final int MIN_SPEED = -10;
     private static final int SPEED_DISPLAY_OFFSET = (MIN_SPEED * -1);
-    private static final int TOTAL_SPEED_STEPS = (Math.abs(MIN_SPEED) * 2);
+    private static final int TOTAL_MOVEMENT_STEPS = (Math.abs(MIN_SPEED) * 2);
+    private static final int TOTAL_SHAPE_STEPS = 10;
     private static final int MAX_COLOR = 255;
     private static final int MAX_SCALAR = 70;
     private static final int MAX_WAVELENGTH = 140;
@@ -63,24 +64,28 @@ public class SettingsActivity extends Activity {
     private SharedPreferences mPrefs;
     private boolean mPaused = true;
     private Plasma mPlasma;
-    private int mViewState = VIEW_STATE_BUILDER;
+    private int mViewState = VIEW_STATE_EDITOR;
 
     private static class Views {
         SurfaceView mSurfaceView;
         SeekBar mSizeSeekBar;
-        SeekBar mXMoveSpeedSeekBar;
-        SeekBar mYMoveSpeedSeekBar;
-        SeekBar mXPulseSpeedSeekBar;
-        SeekBar mYPulseSpeedSeekBar;
-        SeekBar mRedAmountSeekBar;
-        SeekBar mRedIntensitySeekBar;
-        SeekBar mRedWavelengthSeekBar;
-        SeekBar mGreenAmountSeekBar;
-        SeekBar mGreenIntensitySeekBar;
-        SeekBar mGreenWavelengthSeekBar;
-        SeekBar mBlueAmountSeekBar;
-        SeekBar mBlueIntensitySeekBar;
-        SeekBar mBlueWavelengthSeekBar;
+        SeekBar mXMoveModifier1SeekBar;
+        SeekBar mXMoveModifier2SeekBar;
+        SeekBar mYMoveModifier1SeekBar;
+        SeekBar mYMoveModifier2SeekBar;
+        SeekBar mXShapeModifier1SeekBar;
+        SeekBar mXShapeModifier2SeekBar;
+        SeekBar mYShapeModifier1SeekBar;
+        SeekBar mYShapeModifier2SeekBar;
+        SeekBar mRedBrightnessSeekBar;
+        SeekBar mRedContrastSeekBar;
+        SeekBar mRedFrequencySeekBar;
+        SeekBar mGreenBrightnessSeekBar;
+        SeekBar mGreenContrastSeekBar;
+        SeekBar mGreenFrequencySeekBar;
+        SeekBar mBlueBrightnessSeekBar;
+        SeekBar mBlueContrastSeekBar;
+        SeekBar mBlueFrequencySeekBar;
         ListView mProfilesListView;
         Button mEditorButton;
         Button mLibraryButton;
@@ -106,24 +111,29 @@ public class SettingsActivity extends Activity {
 
         mViews.mSizeSeekBar = configureSeekBar(R.id.SizeSeekBar, SIZE_STEP_COUNT);
 
-        mViews.mXPulseSpeedSeekBar = configureSeekBar(R.id.Speed1SeekBar, TOTAL_SPEED_STEPS);
-        mViews.mXMoveSpeedSeekBar = configureSeekBar(R.id.Speed2SeekBar, TOTAL_SPEED_STEPS);
-        mViews.mYPulseSpeedSeekBar = configureSeekBar(R.id.Speed3SeekBar, TOTAL_SPEED_STEPS);
-        mViews.mYMoveSpeedSeekBar = configureSeekBar(R.id.Speed4SeekBar, TOTAL_SPEED_STEPS);
+        mViews.mXMoveModifier2SeekBar = configureSeekBar(R.id.XMove1SeekBar, TOTAL_MOVEMENT_STEPS);
+        mViews.mXMoveModifier1SeekBar = configureSeekBar(R.id.XMove2SeekBar, TOTAL_MOVEMENT_STEPS);
+        mViews.mYMoveModifier2SeekBar = configureSeekBar(R.id.YMove1SeekBar, TOTAL_MOVEMENT_STEPS);
+        mViews.mYMoveModifier1SeekBar = configureSeekBar(R.id.YMove2SeekBar, TOTAL_MOVEMENT_STEPS);
+
+        mViews.mXShapeModifier2SeekBar = configureSeekBar(R.id.XShape1SeekBar, TOTAL_SHAPE_STEPS);
+        mViews.mXShapeModifier1SeekBar = configureSeekBar(R.id.XShape2SeekBar, TOTAL_SHAPE_STEPS);
+        mViews.mYShapeModifier2SeekBar = configureSeekBar(R.id.YShape1SeekBar, TOTAL_SHAPE_STEPS);
+        mViews.mYShapeModifier1SeekBar = configureSeekBar(R.id.YShape2SeekBar, TOTAL_SHAPE_STEPS);
 
         /* NOTE RED AND BLUE ARE SWAPPED DUE TO AN OLD STUPID BUG */
-        mViews.mRedAmountSeekBar = configureSeekBar(R.id.BlueAmountSeekBar, MAX_COLOR);
-        mViews.mRedIntensitySeekBar = configureSeekBar(R.id.BlueIntensitySeekBar, MAX_SCALAR);
-        mViews.mRedWavelengthSeekBar = configureSeekBar(R.id.BlueWavelengthSeekBar, MAX_WAVELENGTH);
+        mViews.mRedBrightnessSeekBar = configureSeekBar(R.id.BlueAmountSeekBar, MAX_COLOR);
+        mViews.mRedContrastSeekBar = configureSeekBar(R.id.BlueIntensitySeekBar, MAX_SCALAR);
+        mViews.mRedFrequencySeekBar = configureSeekBar(R.id.BlueWavelengthSeekBar, MAX_WAVELENGTH);
 
-        mViews.mGreenAmountSeekBar = configureSeekBar(R.id.GreenAmountSeekBar, MAX_COLOR);
-        mViews.mGreenIntensitySeekBar = configureSeekBar(R.id.GreenIntensitySeekBar, MAX_SCALAR);
-        mViews.mGreenWavelengthSeekBar = configureSeekBar(R.id.GreenWavelengthSeekBar, MAX_WAVELENGTH);
+        mViews.mGreenBrightnessSeekBar = configureSeekBar(R.id.GreenAmountSeekBar, MAX_COLOR);
+        mViews.mGreenContrastSeekBar = configureSeekBar(R.id.GreenIntensitySeekBar, MAX_SCALAR);
+        mViews.mGreenFrequencySeekBar = configureSeekBar(R.id.GreenWavelengthSeekBar, MAX_WAVELENGTH);
 
         /* NOTE BLUE AND RED ARE SWAPPED DUE TO AN OLD STUPID BUG */
-        mViews.mBlueAmountSeekBar = configureSeekBar(R.id.RedAmountSeekBar, MAX_COLOR);
-        mViews.mBlueIntensitySeekBar = configureSeekBar(R.id.RedIntensitySeekBar, MAX_SCALAR);
-        mViews.mBlueWavelengthSeekBar = configureSeekBar(R.id.RedWavelengthSeekBar, MAX_WAVELENGTH);
+        mViews.mBlueBrightnessSeekBar = configureSeekBar(R.id.RedAmountSeekBar, MAX_COLOR);
+        mViews.mBlueContrastSeekBar = configureSeekBar(R.id.RedIntensitySeekBar, MAX_SCALAR);
+        mViews.mBlueFrequencySeekBar = configureSeekBar(R.id.RedWavelengthSeekBar, MAX_WAVELENGTH);
 
         mViews.mFlipper = (ViewFlipper) findViewById(R.id.ViewFlipper);
         mViews.mFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
@@ -163,7 +173,7 @@ public class SettingsActivity extends Activity {
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         if (item.getItemId() == R.id.SettingsMenuPriorityToggle) {
-            setLowPriorityEnabled( ! isLowPriorityEnabled());
+            setLowPriorityEnabled(!isLowPriorityEnabled());
         }
         else if (item.getItemId() == R.id.SettingsMenuResetProfiles) {
             showConfirmResetEffectLibraryDialog();
@@ -222,7 +232,7 @@ public class SettingsActivity extends Activity {
     private SeekBar configureSeekBar(int id, int max) {
         SeekBar seekbar = (SeekBar) findViewById(id);
         seekbar.setMax(max);
-        seekbar.setOnSeekBarChangeListener(mSizeChangeListener);
+        seekbar.setOnSeekBarChangeListener(mOnSeekBarChangedListener);
         return seekbar;
     }
 
@@ -252,7 +262,7 @@ public class SettingsActivity extends Activity {
     }
 
     private void addBuiltInProfiles() {
-        if (( ! builtInProfilesAdded()) || ( ! cottonCandyProfileAdded())) {
+        if ((!builtInProfilesAdded()) || (!cottonCandyProfileAdded())) {
             new ProfileLoader().execute(new Void[] { });
         }
     }
@@ -260,22 +270,27 @@ public class SettingsActivity extends Activity {
     private void reloadSettings() {
         mViews.mSizeSeekBar.setProgress(MIN_SIZE + (SIZE_STEP_COUNT - Math.max(0, mEffect.getSize())));
 
-        mViews.mXMoveSpeedSeekBar.setProgress(TOTAL_SPEED_STEPS - (mEffect.getXMoveSpeed() + SPEED_DISPLAY_OFFSET));
-        mViews.mYMoveSpeedSeekBar.setProgress(mEffect.getYMoveSpeed() + SPEED_DISPLAY_OFFSET);
-        mViews.mXPulseSpeedSeekBar.setProgress(mEffect.getXPulseSpeed() + SPEED_DISPLAY_OFFSET);
-        mViews.mYPulseSpeedSeekBar.setProgress(mEffect.getYPulseSpeed() + SPEED_DISPLAY_OFFSET);
+        mViews.mXMoveModifier1SeekBar.setProgress(TOTAL_MOVEMENT_STEPS - (mEffect.getXMoveModifier2() + SPEED_DISPLAY_OFFSET));
+        mViews.mYMoveModifier1SeekBar.setProgress(mEffect.getYMoveModifier2() + SPEED_DISPLAY_OFFSET);
+        mViews.mXMoveModifier2SeekBar.setProgress(mEffect.getXMoveModifier1() + SPEED_DISPLAY_OFFSET);
+        mViews.mYMoveModifier2SeekBar.setProgress(mEffect.getYMoveModifier1() + SPEED_DISPLAY_OFFSET);
 
-        mViews.mRedAmountSeekBar.setProgress(mEffect.getRedAmount());
-        mViews.mRedIntensitySeekBar.setProgress(mEffect.getRedIntensity());
-        mViews.mRedWavelengthSeekBar.setProgress(mEffect.getRedWavelength());
+        mViews.mXShapeModifier1SeekBar.setProgress(mEffect.getXShapeModifier1());
+        mViews.mXShapeModifier2SeekBar.setProgress(mEffect.getXShapeModifier2());
+        mViews.mYShapeModifier1SeekBar.setProgress(mEffect.getYShapeModifier1());
+        mViews.mYShapeModifier2SeekBar.setProgress(mEffect.getYShapeModifier2());
 
-        mViews.mGreenAmountSeekBar.setProgress(mEffect.getGreenAmount());
-        mViews.mGreenIntensitySeekBar.setProgress(mEffect.getGreenIntensity());
-        mViews.mGreenWavelengthSeekBar.setProgress(mEffect.getGreenWavelength());
+        mViews.mRedBrightnessSeekBar.setProgress(mEffect.getRedBrightness());
+        mViews.mRedContrastSeekBar.setProgress(mEffect.getRedContrast());
+        mViews.mRedFrequencySeekBar.setProgress(mEffect.getRedFrequency());
 
-        mViews.mBlueAmountSeekBar.setProgress(mEffect.getBlueAmount());
-        mViews.mBlueIntensitySeekBar.setProgress(mEffect.getBlueIntensity());
-        mViews.mBlueWavelengthSeekBar.setProgress(mEffect.getBlueWavelength());
+        mViews.mGreenBrightnessSeekBar.setProgress(mEffect.getGreenBrightness());
+        mViews.mGreenContrastSeekBar.setProgress(mEffect.getGreenContrast());
+        mViews.mGreenFrequencySeekBar.setProgress(mEffect.getGreenFrequency());
+
+        mViews.mBlueBrightnessSeekBar.setProgress(mEffect.getBlueBrightness());
+        mViews.mBlueContrastSeekBar.setProgress(mEffect.getBlueContrast());
+        mViews.mBlueFrequencySeekBar.setProgress(mEffect.getBlueFrequency());
     }
 
     private void reloadProfiles() {
@@ -301,7 +316,7 @@ public class SettingsActivity extends Activity {
     }
 
     private void showConfirmResetEffectLibraryDialog() {
-        if (mViewState == VIEW_STATE_BUILDER) {
+        if (mViewState == VIEW_STATE_EDITOR) {
             flipToLibrary();
         }
 
@@ -391,7 +406,7 @@ public class SettingsActivity extends Activity {
         EditText edit = (EditText) dialog.findViewById(R.id.ProfileNameEditText);
 
         String name = edit.getText().toString().trim();
-        if ((name == null) || (name.length() == 0)) {
+        if (name.length() == 0) {
             showInvalidNameDialog();
             return null;
         }
@@ -400,17 +415,13 @@ public class SettingsActivity extends Activity {
     }
 
     private void flipToLibrary() {
-        mViews.mLibraryButton.setVisibility(View.GONE);
-        mViews.mEditorButton.setVisibility(View.VISIBLE);
         mViews.mFlipper.showPrevious();
         mViewState = VIEW_STATE_LIBRARY;
     }
 
-    private void flipToBuilder() {
-        mViews.mLibraryButton.setVisibility(View.VISIBLE);
-        mViews.mEditorButton.setVisibility(View.GONE);
+    private void flipToEditor() {
         mViews.mFlipper.showNext();
-        mViewState = VIEW_STATE_BUILDER;
+        mViewState = VIEW_STATE_EDITOR;
     }
 
     private boolean isLowPriorityEnabled() {
@@ -494,7 +505,7 @@ public class SettingsActivity extends Activity {
         key = getString(R.string.pref_cotton_candy_added);
         editor.putBoolean(key, false);
 
-        editor.commit();
+        editor.apply();
 
         reloadProfiles();
     }
@@ -521,14 +532,14 @@ public class SettingsActivity extends Activity {
     private DialogInterface.OnClickListener mSaveProfileDialogCancelClickListener =
         new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                flipToBuilder();
+                flipToEditor();
             }
         };
 
     private DialogInterface.OnCancelListener mSaveProfileDialogCancelListener =
         new DialogInterface.OnCancelListener() {
             public void onCancel(DialogInterface dialog) {
-                flipToBuilder();
+                flipToEditor();
             }
         };
 
@@ -559,7 +570,7 @@ public class SettingsActivity extends Activity {
 
     private OnClickListener mEditorClickListener = new OnClickListener() {
         public void onClick(View view) {
-            flipToBuilder();
+            flipToEditor();
         }
     };
 
@@ -579,7 +590,7 @@ public class SettingsActivity extends Activity {
         }
     };
 
-    private OnSeekBarChangeListener mSizeChangeListener = new OnSeekBarChangeListener() {
+    private OnSeekBarChangeListener mOnSeekBarChangedListener = new OnSeekBarChangeListener() {
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         }
 
@@ -591,44 +602,56 @@ public class SettingsActivity extends Activity {
             if (seekBar == mViews.mSizeSeekBar) {
                 mEffect.setSize(MIN_SIZE + (SIZE_STEP_COUNT - progress));
             }
-            else if (seekBar == mViews.mXMoveSpeedSeekBar) {
-                mEffect.setXMoveSpeed(MIN_MOVE - (progress - SPEED_DISPLAY_OFFSET));
+            else if (seekBar == mViews.mXMoveModifier1SeekBar) {
+                mEffect.setXMoveModifier2(MIN_MOVE - (progress - SPEED_DISPLAY_OFFSET));
             }
-            else if (seekBar == mViews.mYMoveSpeedSeekBar) {
-                mEffect.setYMoveSpeed(MIN_MOVE - (progress - SPEED_DISPLAY_OFFSET));
+            else if (seekBar == mViews.mYMoveModifier1SeekBar) {
+                mEffect.setYMoveModifier2(MIN_MOVE - (progress - SPEED_DISPLAY_OFFSET));
             }
-            else if (seekBar == mViews.mXPulseSpeedSeekBar) {
-                mEffect.setXPulseSpeed(progress - SPEED_DISPLAY_OFFSET);
+            else if (seekBar == mViews.mXMoveModifier2SeekBar) {
+                mEffect.setXMoveModifier1(progress - SPEED_DISPLAY_OFFSET);
             }
-            else if (seekBar == mViews.mYPulseSpeedSeekBar) {
-                mEffect.setYPulseSpeed(progress - SPEED_DISPLAY_OFFSET);
+            else if (seekBar == mViews.mYMoveModifier2SeekBar) {
+                mEffect.setYMoveModifier1(progress - SPEED_DISPLAY_OFFSET);
             }
-            else if (seekBar == mViews.mRedAmountSeekBar) {
-                mEffect.setRedAmount(progress);
+            else if (seekBar == mViews.mXShapeModifier1SeekBar) {
+                mEffect.setXShapeModifier1(progress);
             }
-            else if (seekBar == mViews.mRedIntensitySeekBar) {
-                mEffect.setRedIntensity(progress);
+            else if (seekBar == mViews.mXShapeModifier2SeekBar) {
+                mEffect.setXShapeModifier2(progress);
             }
-            else if (seekBar == mViews.mRedWavelengthSeekBar) {
-                mEffect.setRedWavelength(progress);
+            else if (seekBar == mViews.mYShapeModifier1SeekBar) {
+                mEffect.setYShapeModifier1(progress);
             }
-            else if (seekBar == mViews.mGreenAmountSeekBar) {
-                mEffect.setGreenAmount(progress);
+            else if (seekBar == mViews.mYShapeModifier2SeekBar) {
+                mEffect.setYShapeModifier2(progress);
             }
-            else if (seekBar == mViews.mGreenIntensitySeekBar) {
-                mEffect.setGreenIntensity(progress);
+            else if (seekBar == mViews.mRedBrightnessSeekBar) {
+                mEffect.setRedBrightness(progress);
             }
-            else if (seekBar == mViews.mGreenWavelengthSeekBar) {
-                mEffect.setGreenWavelength(progress);
+            else if (seekBar == mViews.mRedContrastSeekBar) {
+                mEffect.setRedContrast(progress);
             }
-            else if (seekBar == mViews.mBlueAmountSeekBar) {
-                mEffect.setBlueAmount(progress);
+            else if (seekBar == mViews.mRedFrequencySeekBar) {
+                mEffect.setRedFrequency(progress);
             }
-            else if (seekBar == mViews.mBlueIntensitySeekBar) {
-                mEffect.setBlueIntensity(progress);
+            else if (seekBar == mViews.mGreenBrightnessSeekBar) {
+                mEffect.setGreenBrightness(progress);
             }
-            else if (seekBar == mViews.mBlueWavelengthSeekBar) {
-                mEffect.setBlueWavelength(progress);
+            else if (seekBar == mViews.mGreenContrastSeekBar) {
+                mEffect.setGreenContrast(progress);
+            }
+            else if (seekBar == mViews.mGreenFrequencySeekBar) {
+                mEffect.setGreenFrequency(progress);
+            }
+            else if (seekBar == mViews.mBlueBrightnessSeekBar) {
+                mEffect.setBlueBrightness(progress);
+            }
+            else if (seekBar == mViews.mBlueContrastSeekBar) {
+                mEffect.setBlueContrast(progress);
+            }
+            else if (seekBar == mViews.mBlueFrequencySeekBar) {
+                mEffect.setBlueFrequency(progress);
             }
         }
     };
@@ -640,7 +663,7 @@ public class SettingsActivity extends Activity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            if ( ! mPaused && mProgressDialog != null) {
+            if (!mPaused && mProgressDialog != null) {
                 mProgressDialog.dismiss();
             }
 
@@ -651,7 +674,7 @@ public class SettingsActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            if ( ! mPaused) {
+            if (!mPaused) {
                 mProgressDialog =
                     ProgressDialog.show(
                         SettingsActivity.this,
@@ -663,7 +686,7 @@ public class SettingsActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
             synchronized (ProfileLoader.class) {
-                if ( ! builtInProfilesAdded()) {
+                if (!builtInProfilesAdded()) {
                     Log.i(TAG, "Profiles don't exist, creating...");
 
                     if (mProfileLibrary.addBuiltInProfiles()) {
@@ -671,31 +694,6 @@ public class SettingsActivity extends Activity {
                             R.string.pref_built_in_profiles_added);
 
                         Log.i(TAG, "Profiles don't exist, created!");
-                    }
-                }
-
-                if ( ! cottonCandyProfileAdded()) {
-                    String name = "cotton candy";
-
-                    String values = "{" +
-                        "\"pref_red_amount\": 120," +
-                        "\"pref_speed4\": 1," +
-                        "\"pref_speed3\": 4," +
-                        "\"pref_blue_intensity\": 80," +
-                        "\"pref_green_amount\": 40," +
-                        "\"pref_red_wavelength\": 40," +
-                        "\"pref_size\": 1," +
-                        "\"pref_red_intensity\": 20," +
-                        "\"pref_speed2\": 1," +
-                        "\"pref_blue_amount\": 120," +
-                        "\"pref_green_wavelength\": 40," +
-                        "\"pref_speed1\": 4," +
-                        "\"pref_green_intensity\": 40," +
-                        "\"pref_blue_wavelength\": 120" +
-                    "}";
-
-                    if (mProfileLibrary.addProfile(name, values) != -1) {
-                        setPreferenceBoolean(R.string.pref_cotton_candy_added);
                     }
                 }
             }
@@ -706,7 +704,7 @@ public class SettingsActivity extends Activity {
         protected void setPreferenceBoolean(int id) {
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(getString(id), true);
-            editor.commit();
+            editor.apply();
         }
     }
 }

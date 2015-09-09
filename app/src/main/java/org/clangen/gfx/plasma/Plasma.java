@@ -96,9 +96,10 @@ public class Plasma {
     }
 
     private static native void nativeSetFrequency(int frequency);
-    private static native void nativeSetPallette(int pallette[], int size);
+    private static native void nativeSetPalette(int palette[], int size);
     private static native void nativeNextFrame(Buffer pixels, int width, int height);
-    private static native void nativeSetSpeed(int speed1, int speed2, int speed3, int speed4);
+    private static native void nativeSetMovement(int xModifier1, int xModifier2, int yModifier1, int yModifier2);
+    private static native void nativeSetShape(int xModifier1, int xModifier2, int yModifier1, int yModifier2);
 
     private static class DrawThread extends Thread {
         private static Bitmap sBitmap = null;
@@ -140,7 +141,7 @@ public class Plasma {
                     cacheDimensions();
                     checkedInitBitmap();
                     checkedInitNativeBuffer();
-                    initPallette();
+                    initPalette();
 
                     if (sBitmap == null && sPixelBuffer == null) {
                         Log.i(TAG, "DrawThread: bitmap or buffer null!");
@@ -231,33 +232,41 @@ public class Plasma {
             }
         }
 
-        private void initPallette() {
-            final int pallette[] = new int[PALLETTE_SIZE];
+        private void initPalette() {
+            final int palette[] = new int[PALLETTE_SIZE];
 
-            final int   mR1 = mEffect.getRedAmount();
-            final float mR2 = mEffect.getRedIntensity();
-            final float mR3 = mEffect.getRedWavelength();
-            final int   mG1 = mEffect.getGreenAmount();
-            final float mG2 = mEffect.getGreenIntensity();
-            final float mG3 = mEffect.getGreenWavelength();
-            final int   mB1 = mEffect.getBlueAmount();
-            final float mB2 = mEffect.getBlueIntensity();
-            final float mB3 = mEffect.getBlueWavelength();
+            final int   mR1 = mEffect.getRedBrightness();
+            final float mR2 = mEffect.getRedContrast();
+            final float mR3 = mEffect.getRedFrequency();
+            final int   mG1 = mEffect.getGreenBrightness();
+            final float mG2 = mEffect.getGreenContrast();
+            final float mG3 = mEffect.getGreenFrequency();
+            final int   mB1 = mEffect.getBlueBrightness();
+            final float mB2 = mEffect.getBlueContrast();
+            final float mB3 = mEffect.getBlueFrequency();
 
-            for (int i = 0; i < pallette.length; i++) {
-                pallette[i] =  Color.rgb(
+            for (int i = 0; i < palette.length; i++) {
+                palette[i] =  Color.rgb(
                     clampByte(mR1 + (int)(mR2 * Math.sin((double)i * 3.1415 / mR3))),
                     clampByte(mG1 + (int)(mG2 * Math.sin((double)i * 3.1415 / mG3))),
                     clampByte(mB1 + (int)(mB2 * Math.sin((double)i * 3.1415 / mB3))));
             }
 
-            nativeSetPallette(pallette, pallette.length);
+            nativeSetPalette(palette, palette.length);
 
             nativeSetFrequency(mEffect.getSize());
 
-            nativeSetSpeed(
-                mEffect.getXPulseSpeed(), mEffect.getXMoveSpeed(),
-                mEffect.getYPulseSpeed(), mEffect.getYMoveSpeed());
+            nativeSetMovement(
+                mEffect.getXMoveModifier1(),
+                mEffect.getXMoveModifier2(),
+                mEffect.getYMoveModifier1(),
+                mEffect.getYMoveModifier2());
+
+            nativeSetShape(
+                mEffect.getXShapeModifier1(),
+                mEffect.getXShapeModifier2(),
+                mEffect.getYShapeModifier1(),
+                mEffect.getYShapeModifier2());
         }
 
         private static int clampByte(int input) {

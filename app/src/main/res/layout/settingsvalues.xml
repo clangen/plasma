@@ -203,6 +203,7 @@
             </TableLayout>
         </LinearLayout>
 
+        <!-- movement -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
@@ -227,7 +228,7 @@
 
                     <SeekBar
                         style="@style/TableSeekBar"
-                        android:id="@+id/Speed1SeekBar" />
+                        android:id="@+id/XMove1SeekBar" />
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -236,7 +237,7 @@
 
                     <SeekBar
                         style="@style/TableSeekBar"
-                        android:id="@+id/Speed2SeekBar" />
+                        android:id="@+id/XMove2SeekBar" />
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -245,16 +246,74 @@
 
                     <SeekBar
                         style="@style/TableSeekBar"
-                        android:id="@+id/Speed3SeekBar" />
-                </TableRow>                <TableRow>
-                <TextView
-                    style="@style/TableLayoutLabel"
-                    android:text="@string/label_y_move_modifier_2" />
+                        android:id="@+id/YMove1SeekBar" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        style="@style/TableLayoutLabel"
+                        android:text="@string/label_y_move_modifier_2" />
 
-                <SeekBar
-                    style="@style/TableSeekBar"
-                    android:id="@+id/Speed4SeekBar" />
-            </TableRow>
+                    <SeekBar
+                        style="@style/TableSeekBar"
+                        android:id="@+id/YMove2SeekBar" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+        <!-- shape -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0" >
+
+            <TextView
+                style="@style/HeaderView"
+                android:text="@string/label_shape" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:stretchColumns="1">
+
+                <TableRow>
+                    <TextView
+                        style="@style/TableLayoutLabel"
+                        android:text="@string/label_x_move_modifier_1" />
+
+                    <SeekBar
+                        style="@style/TableSeekBar"
+                        android:id="@+id/XShape1SeekBar" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        style="@style/TableLayoutLabel"
+                        android:text="@string/label_x_move_modifier_2" />
+
+                    <SeekBar
+                        style="@style/TableSeekBar"
+                        android:id="@+id/XShape2SeekBar" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        style="@style/TableLayoutLabel"
+                        android:text="@string/label_y_move_modifier_1" />
+
+                    <SeekBar
+                        style="@style/TableSeekBar"
+                        android:id="@+id/YShape1SeekBar" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        style="@style/TableLayoutLabel"
+                        android:text="@string/label_y_move_modifier_2" />
+
+                    <SeekBar
+                        style="@style/TableSeekBar"
+                        android:id="@+id/YShape2SeekBar" />
+                </TableRow>
             </TableLayout>
         </LinearLayout>
 

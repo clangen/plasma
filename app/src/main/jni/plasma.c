@@ -4,16 +4,18 @@
 #include <stdio.h>
 #include <android/log.h>
 
-static const int MAX_INT = 2147483647;
-
-jint* _pallette = 0;
+jint* _palette = 0;
 int _sin[512] = { 0 };
-int _plasmaPos[4] = { 0 };
-int _framePos[4] = { 0 };
-int _speed1 = 1;
-int _speed2 = 4;
-int _speed3 = 1;
-int _speed4 = 4;
+int _nextFrame[4] = { 0 };
+int _currentFrame[4] = { 0 };
+int _xMovementModifier1 = 1;
+int _xMovementModifier2 = 4;
+int _yMovementModifier1 = 1;
+int _yMovementModifier2 = 4;
+int _xShapeModifier1 = 1;
+int _xShapeModifier2 = 2;
+int _yShapeModifier1 = 1;
+int _yShapeModifier2 = 2;
 
 void buildSinTable(int frequency) {
     // we need 1 "complete" sin wave -- that is, 360 degrees worth
@@ -41,32 +43,46 @@ void Java_org_clangen_gfx_plasma_Plasma_nativeSetFrequency(
     //__android_log_print(ANDROID_LOG_INFO, "Plasma", "nativeSetFrequency end");
 }
 
-void Java_org_clangen_gfx_plasma_Plasma_nativeSetSpeed(
+void Java_org_clangen_gfx_plasma_Plasma_nativeSetMovement(
     JNIEnv* env,
     jobject obj,
-    jint speed1,
-    jint speed2,
-    jint speed3,
-    jint speed4)
+    jint xModifier1,
+    jint xModifier2,
+    jint yModifier1,
+    jint yModifier2)
 {
-    _speed1 = (int) speed1;
-    _speed2 = (int) speed2;
-    _speed3 = (int) speed3;
-    _speed4 = (int) speed4;
+    _xMovementModifier1 = (int) xModifier1;
+    _xMovementModifier2 = (int) xModifier2;
+    _yMovementModifier1 = (int) yModifier1;
+    _yMovementModifier2 = (int) yModifier2;
 }
 
-void Java_org_clangen_gfx_plasma_Plasma_nativeSetPallette(
+void Java_org_clangen_gfx_plasma_Plasma_nativeSetShape(
+        JNIEnv* env,
+        jobject obj,
+        jint xModifier1,
+        jint xModifier2,
+        jint yModifier1,
+        jint yModifier2)
+{
+    _xShapeModifier1 = (int) xModifier1;
+    _xShapeModifier2 = (int) xModifier2;
+    _yShapeModifier1 = (int) yModifier1;
+    _yShapeModifier2 = (int) yModifier2;
+}
+
+void Java_org_clangen_gfx_plasma_Plasma_nativeSetPalette(
     JNIEnv* env,
     jobject obj,
-    jintArray pallette, 
+    jintArray palette, 
     jint count)
 {
-    //__android_log_print(ANDROID_LOG_INFO, "Plasma", "nativeSetPallette start");
-    if (_pallette == 0) {
-        _pallette = (jint*) malloc(count * sizeof(jint));
+    //__android_log_print(ANDROID_LOG_INFO, "Plasma", "nativeSetPalette start");
+    if (_palette == 0) {
+        _palette = (jint*) malloc(count * sizeof(jint));
     }
-    (*env)->GetIntArrayRegion(env, pallette, 0, count, _pallette);
-    //__android_log_print(ANDROID_LOG_INFO, "Plasma", "nativeSetPallette end");
+    (*env)->GetIntArrayRegion(env, palette, 0, count, _palette);
+    //__android_log_print(ANDROID_LOG_INFO, "Plasma", "nativeSetPalette end");
 }
 
 void Java_org_clangen_gfx_plasma_Plasma_nativeNextFrame(
@@ -83,7 +99,7 @@ void Java_org_clangen_gfx_plasma_Plasma_nativeNextFrame(
     jint halfWidth, halfHeight;
     jint color;
     jint totalPixels;
-    jint pos = 0;   
+    jint pos = 0;
 
     halfWidth = width / 2;
     halfHeight = height / 2;
@@ -92,8 +108,8 @@ void Java_org_clangen_gfx_plasma_Plasma_nativeNextFrame(
 
     //__android_log_print(ANDROID_LOG_INFO, "Plasma", "nativeNextFrame %x %d %d", target, width, height);
 
-    _framePos[2] = _plasmaPos[2];
-    _framePos[3] = _plasmaPos[3];
+    _currentFrame[2] = _nextFrame[2];
+    _currentFrame[3] = _nextFrame[3];
 
 #define SET_PIXEL(target, index, color) \
   target[(index)] = color;
@@ -102,45 +118,45 @@ void Java_org_clangen_gfx_plasma_Plasma_nativeNextFrame(
 
     for (y = 0; y < halfHeight; y++)
     {
-        _framePos[2] &= 0x1ff;
-        _framePos[3] &= 0x1ff;
+        _currentFrame[2] &= 0x1ff;
+        _currentFrame[3] &= 0x1ff;
 
-        _framePos[0] = _plasmaPos[0];
-        _framePos[1] = _plasmaPos[1];
+        _currentFrame[0] = _nextFrame[0];
+        _currentFrame[1] = _nextFrame[1];
 
         for (x = 0; x < halfWidth; x++)
         {
-            _framePos[0] &= 0x1ff;
-            _framePos[1] &= 0x1ff;
+            _currentFrame[0] &= 0x1ff;
+            _currentFrame[1] &= 0x1ff;
 
             index = (
-                _sin[_framePos[0]] +
-                _sin[_framePos[1]] +
-                _sin[_framePos[2]] +
-                _sin[_framePos[3]]) >> 2;
+                _sin[_currentFrame[0]] +
+                _sin[_currentFrame[1]] +
+                _sin[_currentFrame[2]] +
+                _sin[_currentFrame[3]]) >> 2;
 
-            color = _pallette[index];
+            color = _palette[index];
  
             SET_PIXEL(target, pos + 0, color);
             SET_PIXEL(target, pos + 1, color);
             SET_PIXEL(target, pos + width + 0, color);
             SET_PIXEL(target, pos + width + 1, color);
 
-            _framePos[0] += 1; 
-            _framePos[1] += 2;
+            _currentFrame[0] += _xShapeModifier1;
+            _currentFrame[1] += _xShapeModifier2;
 
             pos += 2;
         }
 
         pos += width;
 
-        _framePos[2] += 1;
-        _framePos[3] += 2;
+        _currentFrame[2] += _yShapeModifier1;
+        _currentFrame[3] += _yShapeModifier2;
     }
 
-    _plasmaPos[0] += _speed1;
-    _plasmaPos[1] += _speed2;
-    _plasmaPos[2] += _speed3;
-    _plasmaPos[3] += _speed4;
+    _nextFrame[0] += _xMovementModifier1;
+    _nextFrame[1] += _xMovementModifier2;
+    _nextFrame[2] += _yMovementModifier1;
+    _nextFrame[3] += _yMovementModifier2;
     //__android_log_print(ANDROID_LOG_INFO, "Plasma", "nativeNextFrame end");
 }
