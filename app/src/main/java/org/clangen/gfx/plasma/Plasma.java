@@ -95,10 +95,6 @@ public class Plasma {
         mSurfaceHolder = null;
     }
 
-    public synchronized SurfaceHolder getHolder() {
-        return mSurfaceHolder;
-    }
-
     private static native void nativeSetFrequency(int frequency);
     private static native void nativeSetPallette(int pallette[], int size);
     private static native void nativeNextFrame(Buffer pixels, int width, int height);
@@ -252,7 +248,7 @@ public class Plasma {
                 pallette[i] =  Color.rgb(
                     clampByte(mR1 + (int)(mR2 * Math.sin((double)i * 3.1415 / mR3))),
                     clampByte(mG1 + (int)(mG2 * Math.sin((double)i * 3.1415 / mG3))),
-                    clampByte(mB1 + (int)(mB2 * Math.cos((double)i * 3.1415 / mB3))));
+                    clampByte(mB1 + (int)(mB2 * Math.sin((double)i * 3.1415 / mB3))));
             }
 
             nativeSetPallette(pallette, pallette.length);

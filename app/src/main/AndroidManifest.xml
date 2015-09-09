@@ -6,6 +6,7 @@
 
     <application
         android:icon="@drawable/icon"
+        android:theme="@style/DefaultTheme"
         android:label="@string/app_name" >
 
         <service
@@ -26,7 +27,7 @@
         <activity
             android:label="@string/settings_activity_title"
             android:name=".SettingsActivity"
-            android:theme="@android:style/Theme.Translucent"
+            android:theme="@style/DefaultTheme"
             android:exported="true" />
 
     </application>

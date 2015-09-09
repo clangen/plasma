@@ -5,23 +5,28 @@
     <string name="wallpaper_description">A configurable plasma generator.</string>
     <string name="settings_activity_title">Plasma Settings</string>
 
-    <string name="button_ok">OK</string>
-    <string name="button_effect_library">Effect Library</string>
-    <string name="button_effect_builder">Effect Builder</string>
-    <string name="button_load_defaults">Load Defaults</string>
-    <string name="button_save">Save</string>
+    <string name="button_close_app">close</string>
+    <string name="button_effect_library">load</string>
+    <string name="button_effect_builder">back to editor</string>
+    <string name="button_load_defaults">reset</string>
+    <string name="button_save">save</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
 
     <string name="label_size">size:</string>
-    <string name="label_x_move">x move speed:</string>
-    <string name="label_y_move">y move speed:</string>
-    <string name="label_x_pulse">x pulse speed:</string>
-    <string name="label_y_pulse">y pulse speed:</string>
-    <string name="label_color">color:</string>
+    <string name="label_movement">movement:</string>
+    <string name="label_x_move_modifier_1">x modifier 1</string>
+    <string name="label_y_move_modifier_1">1 modifier 1</string>
+    <string name="label_x_move_modifier_2">x modifier 2</string>
+    <string name="label_y_move_modifier_2">y modifier 2</string>
+    <string name="label_color">brightness:</string>
+    <string name="label_contrast">contrast:</string>
     <string name="label_intensity">intensity:</string>
-    <string name="label_wavelength">wavelength:</string>
+    <string name="label_frequency">frequency:</string>
+    <string name="red">red</string>
+    <string name="green">green</string>
+    <string name="blue">blue</string>
 
     <string name="checkbox_low_priority">low priority</string>
 

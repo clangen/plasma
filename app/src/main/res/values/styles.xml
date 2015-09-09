@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="SettingsTextView">
-        <item name="android:layout_width">wrap_content</item>
+    <style name="HeaderView">
+        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowRadius">2.0</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">0.0</item>
+        <item name="android:layout_marginTop">24dp</item>
+    </style>
+
+    <style name="ChildText">
         <item name="android:shadowColor">#000000</item>
         <item name="android:shadowRadius">2.0</item>
         <item name="android:shadowDx">0.0</item>
         <item name="android:shadowDy">0.0</item>
     </style>
 
-    <style name="ProfileRowTextView">
+    <style name="ListViewItemText">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
         <item name="android:shadowColor">#000000</item>
         <item name="android:shadowRadius">2.0</item>
         <item name="android:shadowDx">0.0</item>
@@ -36,4 +42,54 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="TableLayoutLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">right</item>
+        <item name="android:paddingLeft">24dp</item>
+    </style>
+
+    <style name="TableSeekBar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:progressDrawable">@drawable/seekbar_track</item>
+        <item name="android:layout_marginLeft">4dp</item>
+    </style>
+
+    <style name="HeaderButton">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="ButtonBar">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
+    <style name="CloseButton">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
+    <style name ="DefaultTheme" parent="android:Theme.Holo">
+        <item name="android:textViewStyle">@style/DefaultTextViewStyle</item>
+    </style>
+
+    <style name="DefaultTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowRadius">2.0</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">0.0</item>
+        <item name="android:textColor">#eeeeee</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

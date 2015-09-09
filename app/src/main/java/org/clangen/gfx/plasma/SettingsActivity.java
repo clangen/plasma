@@ -82,7 +82,7 @@ public class SettingsActivity extends Activity {
         SeekBar mBlueIntensitySeekBar;
         SeekBar mBlueWavelengthSeekBar;
         ListView mProfilesListView;
-        Button mBuilderButton;
+        Button mEditorButton;
         Button mLibraryButton;
         ViewFlipper mFlipper;
     }
@@ -111,17 +111,19 @@ public class SettingsActivity extends Activity {
         mViews.mYPulseSpeedSeekBar = configureSeekBar(R.id.Speed3SeekBar, TOTAL_SPEED_STEPS);
         mViews.mYMoveSpeedSeekBar = configureSeekBar(R.id.Speed4SeekBar, TOTAL_SPEED_STEPS);
 
-        mViews.mRedAmountSeekBar = configureSeekBar(R.id.RedAmountSeekBar, MAX_COLOR);
-        mViews.mRedIntensitySeekBar = configureSeekBar(R.id.RedIntensitySeekBar, MAX_SCALAR);
-        mViews.mRedWavelengthSeekBar = configureSeekBar(R.id.RedWavelengthSeekBar, MAX_WAVELENGTH);
+        /* NOTE RED AND BLUE ARE SWAPPED DUE TO AN OLD STUPID BUG */
+        mViews.mRedAmountSeekBar = configureSeekBar(R.id.BlueAmountSeekBar, MAX_COLOR);
+        mViews.mRedIntensitySeekBar = configureSeekBar(R.id.BlueIntensitySeekBar, MAX_SCALAR);
+        mViews.mRedWavelengthSeekBar = configureSeekBar(R.id.BlueWavelengthSeekBar, MAX_WAVELENGTH);
 
         mViews.mGreenAmountSeekBar = configureSeekBar(R.id.GreenAmountSeekBar, MAX_COLOR);
         mViews.mGreenIntensitySeekBar = configureSeekBar(R.id.GreenIntensitySeekBar, MAX_SCALAR);
         mViews.mGreenWavelengthSeekBar = configureSeekBar(R.id.GreenWavelengthSeekBar, MAX_WAVELENGTH);
 
-        mViews.mBlueAmountSeekBar = configureSeekBar(R.id.BlueAmountSeekBar, MAX_COLOR);
-        mViews.mBlueIntensitySeekBar = configureSeekBar(R.id.BlueIntensitySeekBar, MAX_SCALAR);
-        mViews.mBlueWavelengthSeekBar = configureSeekBar(R.id.BlueWavelengthSeekBar, MAX_WAVELENGTH);
+        /* NOTE BLUE AND RED ARE SWAPPED DUE TO AN OLD STUPID BUG */
+        mViews.mBlueAmountSeekBar = configureSeekBar(R.id.RedAmountSeekBar, MAX_COLOR);
+        mViews.mBlueIntensitySeekBar = configureSeekBar(R.id.RedIntensitySeekBar, MAX_SCALAR);
+        mViews.mBlueWavelengthSeekBar = configureSeekBar(R.id.RedWavelengthSeekBar, MAX_WAVELENGTH);
 
         mViews.mFlipper = (ViewFlipper) findViewById(R.id.ViewFlipper);
         mViews.mFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
@@ -134,13 +136,13 @@ public class SettingsActivity extends Activity {
 
         findViewById(R.id.ResetButton).setOnClickListener(mResetClickListener);
         findViewById(R.id.OKButton).setOnClickListener(mDoneClickListener);
-        findViewById(R.id.SaveButton1).setOnClickListener(mSaveButton1ClickListener);
+        findViewById(R.id.SaveButton).setOnClickListener(mSaveButton1ClickListener);
 
         mViews.mLibraryButton = (Button) findViewById(R.id.LibraryButton);
         mViews.mLibraryButton.setOnClickListener(mLibraryClickListener);
 
-        mViews.mBuilderButton = (Button) findViewById(R.id.BuilderButton);
-        mViews.mBuilderButton.setOnClickListener(mBuilderClickListener);
+        mViews.mEditorButton = (Button) findViewById(R.id.EditorButton);
+        mViews.mEditorButton.setOnClickListener(mEditorClickListener);
 
         reloadSettings();
         reloadProfiles();
@@ -294,7 +296,7 @@ public class SettingsActivity extends Activity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.invalid_name_title);
         builder.setMessage(R.string.invalid_name_message);
-        builder.setPositiveButton(R.string.button_ok, null);
+        builder.setPositiveButton(R.string.button_close_app, null);
         builder.show();
     }
 
@@ -399,14 +401,14 @@ public class SettingsActivity extends Activity {
 
     private void flipToLibrary() {
         mViews.mLibraryButton.setVisibility(View.GONE);
-        mViews.mBuilderButton.setVisibility(View.VISIBLE);
+        mViews.mEditorButton.setVisibility(View.VISIBLE);
         mViews.mFlipper.showPrevious();
         mViewState = VIEW_STATE_LIBRARY;
     }
 
     private void flipToBuilder() {
         mViews.mLibraryButton.setVisibility(View.VISIBLE);
-        mViews.mBuilderButton.setVisibility(View.GONE);
+        mViews.mEditorButton.setVisibility(View.GONE);
         mViews.mFlipper.showNext();
         mViewState = VIEW_STATE_BUILDER;
     }
@@ -555,7 +557,7 @@ public class SettingsActivity extends Activity {
         }
     };
 
-    private OnClickListener mBuilderClickListener = new OnClickListener() {
+    private OnClickListener mEditorClickListener = new OnClickListener() {
         public void onClick(View view) {
             flipToBuilder();
         }
