@@ -13,32 +13,30 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Menu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.ViewFlipper;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class SettingsActivity extends Activity {
     private static final String TAG = "SettingsActivity";
 
     public static final String ACTION_SETTINGS_STARTED = "org.clangen.gfx.plasma.ACTION_SETTINGS_STARTED";
     public static final String ACTION_SETTINGS_FINISHED = "org.clangen.gfx.plasma.ACTION_SETTINGS_FINISHED";
-    public static final String ACTION_SETTINGS_PRIORITY_CHANGED = "org.clangen.gfx.plasma.ACTION_PRIORITY_CHANGED";
 
     private static final int VIEW_STATE_EDITOR = 0;
     private static final int VIEW_STATE_LIBRARY = 1;
@@ -168,35 +166,6 @@ public class SettingsActivity extends Activity {
             getMenuInflater().inflate(R.menu.profilescontextmenu, menu);
             menu.setHeaderTitle(R.string.context_menu_title);
         }
-    }
-
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        if (item.getItemId() == R.id.SettingsMenuPriorityToggle) {
-            setLowPriorityEnabled(!isLowPriorityEnabled());
-        }
-        else if (item.getItemId() == R.id.SettingsMenuResetProfiles) {
-            showConfirmResetEffectLibraryDialog();
-        }
-
-        return super.onMenuItemSelected(featureId, item);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem priority = menu.findItem(R.id.SettingsMenuPriorityToggle);
-
-        priority.setTitle(isLowPriorityEnabled()
-            ? R.string.settings_menu_raise_priority
-            : R.string.settings_menu_lower_priority);
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.settingsmainmenu, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -426,13 +395,6 @@ public class SettingsActivity extends Activity {
 
     private boolean isLowPriorityEnabled() {
         return mPrefs.getBoolean(getString(R.string.pref_low_priority), true);
-    }
-
-    private void setLowPriorityEnabled(boolean enabled) {
-        SharedPreferences.Editor editor = mPrefs.edit();
-        editor.putBoolean(getString(R.string.pref_low_priority), enabled);
-        editor.apply();
-        sendBroadcast(new Intent(ACTION_SETTINGS_PRIORITY_CHANGED));
     }
 
     private OnItemClickListener mOnProfileRowClickListener =

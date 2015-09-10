@@ -1,48 +1,37 @@
 package org.clangen.gfx.plasma;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.util.Log;
+import android.view.SurfaceHolder;
+
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.concurrent.CountDownLatch;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.WindowManager;
-
 public class Plasma {
     private static final String TAG = "Plasma";
 
-    private static final int PALLETTE_SIZE = 256;
+    private static final int PALETTE_SIZE = 256;
     private static final int FRAMES_PER_SEC = 22;
     private static final int MILLIS_PER_FRAME = 1000 / FRAMES_PER_SEC;
 
     private static Plasma sInstance;
-    private static int sThreadPriority = Thread.MIN_PRIORITY;
 
-    private Context mContext;
     private SurfaceHolder mSurfaceHolder;
     private Effect mEffect;
     private DrawThread mDrawThread;
-    private DisplayMetrics mDisplayMetrics = new DisplayMetrics();
 
     static {
         System.loadLibrary("plasma");
     }
 
     private Plasma(Context context) {
-        mContext = context.getApplicationContext();
-
-        mEffect = Effect.getInstance(mContext);
-
-        WindowManager wm = (WindowManager)
-            mContext.getSystemService(Context.WINDOW_SERVICE);
-
-        wm.getDefaultDisplay().getMetrics(mDisplayMetrics);
+        context = context.getApplicationContext();
+        mEffect = Effect.getInstance(context);
     }
 
     public static Plasma getInstance(Context context) {
@@ -59,15 +48,6 @@ public class Plasma {
         synchronized (Plasma.class) {
             if (sInstance != null) {
                 sInstance.start(sInstance.mSurfaceHolder);
-            }
-        }
-    }
-
-    public static void setThreadPriority(int priority) {
-        synchronized (Plasma.class) {
-            if (sThreadPriority != priority) {
-                sThreadPriority = priority;
-                onEffectChanged();
             }
         }
     }
@@ -115,7 +95,7 @@ public class Plasma {
 
         public DrawThread(Plasma plasma) {
             setName("PlasmaService.DrawThread");
-            setPriority(sThreadPriority);
+            setPriority(Thread.NORM_PRIORITY);
 
             mPlasma = plasma;
             mSurfaceHolder = mPlasma.mSurfaceHolder;
@@ -166,10 +146,10 @@ public class Plasma {
                                 Log.i(TAG, "failed to draw frame");
                             }
                             finally {
-                            	mSurfaceHolder.unlockCanvasAndPost(canvas);                        	
-                            }                        	
+                            	mSurfaceHolder.unlockCanvasAndPost(canvas);
+                            }
                         }
-                        
+
                         long elapsed = System.currentTimeMillis() - start;
                         long delay = MILLIS_PER_FRAME - elapsed;
 
@@ -233,7 +213,7 @@ public class Plasma {
         }
 
         private void initPalette() {
-            final int palette[] = new int[PALLETTE_SIZE];
+            final int palette[] = new int[PALETTE_SIZE];
 
             final int   mR1 = mEffect.getRedBrightness();
             final float mR2 = mEffect.getRedContrast();

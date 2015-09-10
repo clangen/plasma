@@ -45,10 +45,6 @@
     <string name="context_menu_rename">Rename</string>
     <string name="context_menu_delete">Delete</string>
 
-    <string name="settings_menu_lower_priority">Lower priority</string>
-    <string name="settings_menu_raise_priority">Raise priority</string>
-    <string name="settings_menu_reset_profiles">Reset Effect Library</string>
-
     <string name="invalid_name_title">Bad name</string>
     <string name="invalid_name_message">An effect name cannot be blank.</string>
 
