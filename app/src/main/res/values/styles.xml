@@ -9,7 +9,10 @@
         <item name="android:shadowRadius">2.0</item>
         <item name="android:shadowDx">0.0</item>
         <item name="android:shadowDy">0.0</item>
-        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:background">#33000000</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 
     <style name="ChildText">

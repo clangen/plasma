@@ -14,7 +14,7 @@
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
 
-    <string name="label_size">base size:</string>
+    <string name="label_size">base size</string>
     <string name="label_movement">movement:</string>
     <string name="label_shape">shape:</string>
     <string name="label_x_move_modifier_1">x modifier 1</string>

@@ -431,7 +431,7 @@ public class SettingsActivity extends Activity {
     private void setLowPriorityEnabled(boolean enabled) {
         SharedPreferences.Editor editor = mPrefs.edit();
         editor.putBoolean(getString(R.string.pref_low_priority), enabled);
-        editor.commit();
+        editor.apply();
         sendBroadcast(new Intent(ACTION_SETTINGS_PRIORITY_CHANGED));
     }
 
