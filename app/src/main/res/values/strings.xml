@@ -10,7 +10,7 @@
     <string name="button_effect_library">load</string>
     <string name="button_effect_builder">back to editor</string>
     <string name="button_load_defaults">reset</string>
-    <string name="button_save">Save</string>
+    <string name="button_save">save</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
