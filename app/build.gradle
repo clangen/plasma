@@ -17,9 +17,22 @@ android {
         versionCode 32
         versionName "1.1.0"
     }
-    buildTypes {
+
+    signingConfigs {
+        debug {
+
+        }
         release {
-            minifyEnabled false
+
+        }
+    }
+
+    buildTypes {
+        debug {
+
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
