@@ -62,20 +62,20 @@
                 android:layout_marginBottom="16dp"/>
 
             <TextView
-                android:id="@+id/hide_from_launcher"
-                android:text="@string/help_hide_icon"
+                android:id="@+id/close_window"
+                android:text="@string/help_close_window"
                 android:layout_below="@id/SettingsButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"/>
 
             <Button
-                android:id="@+id/HideButton"
-                android:layout_below="@id/hide_from_launcher"
+                android:id="@+id/CloseButton"
+                android:layout_below="@id/close_window"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="@string/button_hide_from_launcher"/>
+                android:text="@string/button_close_window"/>
 
         </RelativeLayout>
     </ScrollView>
