@@ -5,29 +5,29 @@ import org.json.JSONObject;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class Effect {
-    private final static int R_AMOUNT = 181;
-    private final static int R_INTENSITY = 33;
-    private final static int R_WAVELENGTH = 140;
-    private final static int G_AMOUNT = 151;
-    private final static int G_INTENSITY = 31;
-    private final static int G_WAVELENGTH = 92;
-    private final static int B_AMOUNT = 125;
-    private final static int B_INTENSITY = 27;
-    private final static int B_WAVELENGTH = 120;
-    private final static int SIZE = 1;
-    private final static int X_MOVE_MODIFIER_1 = 3;
-    private final static int X_MOVE_MODIFIER_2 = 1;
-    private final static int Y_MOVE_MODIFIER_1 = 8;
-    private final static int Y_MOVE_MODIFIER_2 = 1;
-    private final static int X_SHAPE_MODIFIER_1 = 1;
-    private final static int X_SHAPE_MODIFIER_2 = 2;
-    private final static int Y_SHAPE_MODIFIER_1 = 1;
-    private final static int Y_SHAPE_MODIFIER_2 = 2;
+    /* the default preset is watermelon 1 */
+    private final static int DEFAULT_SIZE = 1;
+    private final static int DEFAULT_RED_BRIGHTNESS = 42;
+    private final static int DEFAULT_RED_CONTRAST = 11;
+    private final static int DEFAULT_RED_FREQUENCY = 0;
+    private final static int DEFAULT_GREEN_BRIGHTNESS = 27;
+    private final static int DEFAULT_GREEN_CONTRAST = 36;
+    private final static int DEFAULT_GREEN_FREQUENCY = 16;
+    private final static int DEFAULT_BLUE_BRIGHTNESS = 90;
+    private final static int DEFAULT_BLUE_CONTRAST = 67;
+    private final static int DEFAULT_BLUE_FREQUENCY = 140;
+    private final static int DEFAULT_X_MOVE_MODIFIER_1 = -5;
+    private final static int DEFAULT_X_MOVE_MODIFIER_2 = 7;
+    private final static int DEFAULT_Y_MOVE_MODIFIER_1 = 0;
+    private final static int DEFAULT_Y_MOVE_MODIFIER_2 = 0;
+    private final static int DEFAULT_X_SHAPE_MODIFIER_1 = 1;
+    private final static int DEFAULT_X_SHAPE_MODIFIER_2 = 2;
+    private final static int DEFAULT_Y_SHAPE_MODIFIER_1 = 1;
+    private final static int DEFAULT_Y_SHAPE_MODIFIER_2 = 2;
 
     private static Effect sInstance;
 
@@ -51,7 +51,7 @@ public class Effect {
     }
 
     public int getSize() {
-        return Math.max(1, getInteger(R.string.pref_size, SIZE));
+        return Math.max(1, getInteger(R.string.pref_size, DEFAULT_SIZE));
     }
 
     public void setSize(int size) {
@@ -59,39 +59,39 @@ public class Effect {
     }
 
     public int getXMoveModifier1() {
-        return getInteger(R.string.pref_speed1, X_MOVE_MODIFIER_1);
+        return getInteger(R.string.pref_x_move_modifier_1, DEFAULT_X_MOVE_MODIFIER_1);
     }
 
     public void setXMoveModifier1(int speed) {
-        setInteger(R.string.pref_speed1, speed);
+        setInteger(R.string.pref_x_move_modifier_1, speed);
     }
 
     public int getXMoveModifier2() {
-        return getInteger(R.string.pref_speed2, X_MOVE_MODIFIER_2);
+        return getInteger(R.string.pref_x_move_modifier_2, DEFAULT_X_MOVE_MODIFIER_2);
     }
 
     public void setXMoveModifier2(int speed) {
-        setInteger(R.string.pref_speed2, speed);
+        setInteger(R.string.pref_x_move_modifier_2, speed);
     }
 
     public int getYMoveModifier1() {
-        return getInteger(R.string.pref_speed3, Y_MOVE_MODIFIER_1);
+        return getInteger(R.string.pref_y_move_modifier_1, DEFAULT_Y_MOVE_MODIFIER_1);
     }
 
     public void setYMoveModifier1(int speed) {
-        setInteger(R.string.pref_speed3, speed);
+        setInteger(R.string.pref_y_move_modifier_1, speed);
     }
 
     public int getYMoveModifier2() {
-        return getInteger(R.string.pref_speed4, Y_MOVE_MODIFIER_2);
+        return getInteger(R.string.pref_y_move_modifier_2, DEFAULT_Y_MOVE_MODIFIER_2);
     }
 
     public void setYMoveModifier2(int speed) {
-        setInteger(R.string.pref_speed4, speed);
+        setInteger(R.string.pref_y_move_modifier_2, speed);
     }
 
     public int getXShapeModifier1() {
-        return getInteger(R.string.pref_x_shape_modifier_1, X_SHAPE_MODIFIER_1);
+        return getInteger(R.string.pref_x_shape_modifier_1, DEFAULT_X_SHAPE_MODIFIER_1);
     }
 
     public void setXShapeModifier1(int value) {
@@ -99,7 +99,7 @@ public class Effect {
     }
 
     public int getXShapeModifier2() {
-        return getInteger(R.string.pref_x_shape_modifier_2, X_SHAPE_MODIFIER_2);
+        return getInteger(R.string.pref_x_shape_modifier_2, DEFAULT_X_SHAPE_MODIFIER_2);
     }
 
     public void setXShapeModifier2(int value) {
@@ -107,7 +107,7 @@ public class Effect {
     }
 
     public int getYShapeModifier1() {
-        return getInteger(R.string.pref_y_shape_modifier_1, Y_SHAPE_MODIFIER_1);
+        return getInteger(R.string.pref_y_shape_modifier_1, DEFAULT_Y_SHAPE_MODIFIER_1);
     }
 
     public void setYShapeModifier1(int value) {
@@ -115,7 +115,7 @@ public class Effect {
     }
 
     public int getYShapeModifier2() {
-        return getInteger(R.string.pref_y_shape_modifier_2, Y_SHAPE_MODIFIER_2);
+        return getInteger(R.string.pref_y_shape_modifier_2, DEFAULT_Y_SHAPE_MODIFIER_2);
     }
 
     public void setYShapeModifier2(int value) {
@@ -123,93 +123,93 @@ public class Effect {
     }
 
     public int getRedBrightness() {
-        return getInteger(R.string.pref_red_amount, R_AMOUNT);
+        return getInteger(R.string.pref_red_brightness, DEFAULT_RED_BRIGHTNESS);
     }
 
     public void setRedBrightness(int value) {
-        setInteger(R.string.pref_red_amount, value);
+        setInteger(R.string.pref_red_brightness, value);
     }
 
     public int getRedContrast() {
-        return getInteger(R.string.pref_red_intensity, R_INTENSITY);
+        return getInteger(R.string.pref_red_contrast, DEFAULT_RED_CONTRAST);
     }
 
     public void setRedContrast(int value) {
-        setInteger(R.string.pref_red_intensity, value);
+        setInteger(R.string.pref_red_contrast, value);
     }
 
     public int getRedFrequency() {
-        return getInteger(R.string.pref_red_wavelength, R_WAVELENGTH);
+        return getInteger(R.string.pref_red_frequency, DEFAULT_RED_FREQUENCY);
     }
 
     public void setRedFrequency(int value) {
-        setInteger(R.string.pref_red_wavelength, value);
+        setInteger(R.string.pref_red_frequency, value);
     }
 
     public int getGreenBrightness() {
-        return getInteger(R.string.pref_green_amount, G_AMOUNT);
+        return getInteger(R.string.pref_green_brightness, DEFAULT_GREEN_BRIGHTNESS);
     }
 
     public void setGreenBrightness(int value) {
-        setInteger(R.string.pref_green_amount, value);
+        setInteger(R.string.pref_green_brightness, value);
     }
 
     public int getGreenContrast() {
-        return getInteger(R.string.pref_green_intensity, G_INTENSITY);
+        return getInteger(R.string.pref_green_contrast, DEFAULT_GREEN_CONTRAST);
     }
 
     public void setGreenContrast(int value) {
-        setInteger(R.string.pref_green_intensity, value);
+        setInteger(R.string.pref_green_contrast, value);
     }
 
     public int getGreenFrequency() {
-        return getInteger(R.string.pref_green_wavelength, G_WAVELENGTH);
+        return getInteger(R.string.pref_green_frequency, DEFAULT_GREEN_FREQUENCY);
     }
 
     public void setGreenFrequency(int value) {
-        setInteger(R.string.pref_green_wavelength, value);
+        setInteger(R.string.pref_green_frequency, value);
     }
 
     public int getBlueBrightness() {
-        return getInteger(R.string.pref_blue_amount, B_AMOUNT);
+        return getInteger(R.string.pref_blue_brightness, DEFAULT_BLUE_BRIGHTNESS);
     }
 
     public void setBlueBrightness(int value) {
-        setInteger(R.string.pref_blue_amount, value);
+        setInteger(R.string.pref_blue_brightness, value);
     }
 
     public int getBlueContrast() {
-        return getInteger(R.string.pref_blue_intensity, B_INTENSITY);
+        return getInteger(R.string.pref_blue_contrast, DEFAULT_BLUE_CONTRAST);
     }
 
     public void setBlueContrast(int value) {
-        setInteger(R.string.pref_blue_intensity, value);
+        setInteger(R.string.pref_blue_contrast, value);
     }
 
     public int getBlueFrequency() {
-        return getInteger(R.string.pref_blue_wavelength, B_WAVELENGTH);
+        return getInteger(R.string.pref_blue_frequency, DEFAULT_BLUE_FREQUENCY);
     }
 
     public void setBlueFrequency(int value) {
-        setInteger(R.string.pref_blue_wavelength, value);
+        setInteger(R.string.pref_blue_frequency, value);
     }
 
     public void resetEffectToDefault() {
         SharedPreferences.Editor editor = mPrefs.edit();
         editor.remove(getKey(R.string.pref_size));
-        editor.remove(getKey(R.string.pref_red_amount));
-        editor.remove(getKey(R.string.pref_red_intensity));
-        editor.remove(getKey(R.string.pref_red_wavelength));
-        editor.remove(getKey(R.string.pref_green_amount));
-        editor.remove(getKey(R.string.pref_green_intensity));
-        editor.remove(getKey(R.string.pref_green_wavelength));
-        editor.remove(getKey(R.string.pref_blue_amount));
-        editor.remove(getKey(R.string.pref_blue_intensity));
-        editor.remove(getKey(R.string.pref_blue_wavelength));
-        editor.remove(getKey(R.string.pref_speed1));
-        editor.remove(getKey(R.string.pref_speed2));
-        editor.remove(getKey(R.string.pref_speed3));
-        editor.remove(getKey(R.string.pref_speed4));
+        editor.remove(getKey(R.string.pref_red_brightness));
+        editor.remove(getKey(R.string.pref_red_contrast));
+        editor.remove(getKey(R.string.pref_red_frequency));
+        editor.remove(getKey(R.string.pref_green_brightness));
+        editor.remove(getKey(R.string.pref_green_contrast));
+        editor.remove(getKey(R.string.pref_green_frequency));
+        editor.remove(getKey(R.string.pref_blue_brightness));
+        editor.remove(getKey(R.string.pref_blue_contrast));
+        editor.remove(getKey(R.string.pref_blue_frequency));
+        editor.remove(getKey(R.string.pref_x_move_modifier_1));
+        editor.remove(getKey(R.string.pref_x_move_modifier_2));
+        editor.remove(getKey(R.string.pref_y_move_modifier_1));
+        editor.remove(getKey(R.string.pref_y_move_modifier_2));
         editor.remove(getKey(R.string.pref_x_shape_modifier_1));
         editor.remove(getKey(R.string.pref_x_shape_modifier_2));
         editor.remove(getKey(R.string.pref_y_shape_modifier_1));
@@ -264,19 +264,19 @@ public class Effect {
 
         try {
             json.put(getKey(R.string.pref_size), getSize());
-            json.put(getKey(R.string.pref_red_amount), getRedBrightness());
-            json.put(getKey(R.string.pref_red_intensity), getRedContrast());
-            json.put(getKey(R.string.pref_red_wavelength), getRedFrequency());
-            json.put(getKey(R.string.pref_green_amount), getGreenBrightness());
-            json.put(getKey(R.string.pref_green_intensity), getGreenContrast());
-            json.put(getKey(R.string.pref_green_wavelength), getGreenFrequency());
-            json.put(getKey(R.string.pref_blue_amount), getBlueBrightness());
-            json.put(getKey(R.string.pref_blue_intensity), getBlueContrast());
-            json.put(getKey(R.string.pref_blue_wavelength), getBlueFrequency());
-            json.put(getKey(R.string.pref_speed1), getXMoveModifier1());
-            json.put(getKey(R.string.pref_speed2), getXMoveModifier2());
-            json.put(getKey(R.string.pref_speed3), getYMoveModifier1());
-            json.put(getKey(R.string.pref_speed4), getYMoveModifier2());
+            json.put(getKey(R.string.pref_red_brightness), getRedBrightness());
+            json.put(getKey(R.string.pref_red_contrast), getRedContrast());
+            json.put(getKey(R.string.pref_red_frequency), getRedFrequency());
+            json.put(getKey(R.string.pref_green_brightness), getGreenBrightness());
+            json.put(getKey(R.string.pref_green_contrast), getGreenContrast());
+            json.put(getKey(R.string.pref_green_frequency), getGreenFrequency());
+            json.put(getKey(R.string.pref_blue_brightness), getBlueBrightness());
+            json.put(getKey(R.string.pref_blue_contrast), getBlueContrast());
+            json.put(getKey(R.string.pref_blue_frequency), getBlueFrequency());
+            json.put(getKey(R.string.pref_x_move_modifier_1), getXMoveModifier1());
+            json.put(getKey(R.string.pref_x_move_modifier_2), getXMoveModifier2());
+            json.put(getKey(R.string.pref_y_move_modifier_1), getYMoveModifier1());
+            json.put(getKey(R.string.pref_y_move_modifier_2), getYMoveModifier2());
             json.put(getKey(R.string.pref_x_shape_modifier_1), getXShapeModifier1());
             json.put(getKey(R.string.pref_x_shape_modifier_2), getXShapeModifier2());
             json.put(getKey(R.string.pref_y_shape_modifier_1), getYShapeModifier1());
@@ -294,23 +294,23 @@ public class Effect {
             // reading an invalid key will throw an exception
             JSONObject json = new JSONObject(string);
             int size = json.getInt(getKey(R.string.pref_size));
-            int redBrightness = json.getInt(getKey(R.string.pref_red_amount));
-            int redContrast = json.getInt(getKey(R.string.pref_red_intensity));
-            int redFrequency = json.getInt(getKey(R.string.pref_red_wavelength));
-            int greenBrightness = json.getInt(getKey(R.string.pref_green_amount));
-            int greenContrast = json.getInt(getKey(R.string.pref_green_intensity));
-            int greenFrequency = json.getInt(getKey(R.string.pref_green_wavelength));
-            int blueBrightness = json.getInt(getKey(R.string.pref_blue_amount));
-            int blueContrast = json.getInt(getKey(R.string.pref_blue_intensity));
-            int blueFrequency = json.getInt(getKey(R.string.pref_blue_wavelength));
-            int xMoveModifier1 = json.getInt(getKey(R.string.pref_speed1));
-            int xMoveModifier2 = json.getInt(getKey(R.string.pref_speed2));
-            int yMoveModifier1 = json.getInt(getKey(R.string.pref_speed3));
-            int yMoveModifier2 = json.getInt(getKey(R.string.pref_speed4));
-            int xShapeModifier1 = json.optInt(getKey(R.string.pref_x_shape_modifier_1), X_SHAPE_MODIFIER_1);
-            int xShapeModifier2 = json.optInt(getKey(R.string.pref_x_shape_modifier_2), X_SHAPE_MODIFIER_2);
-            int yShapeModifier1 = json.optInt(getKey(R.string.pref_y_shape_modifier_1), Y_SHAPE_MODIFIER_1);
-            int yShapeModifier2 = json.optInt(getKey(R.string.pref_y_shape_modifier_2), Y_SHAPE_MODIFIER_2);
+            int redBrightness = json.getInt(getKey(R.string.pref_red_brightness));
+            int redContrast = json.getInt(getKey(R.string.pref_red_contrast));
+            int redFrequency = json.getInt(getKey(R.string.pref_red_frequency));
+            int greenBrightness = json.getInt(getKey(R.string.pref_green_brightness));
+            int greenContrast = json.getInt(getKey(R.string.pref_green_contrast));
+            int greenFrequency = json.getInt(getKey(R.string.pref_green_frequency));
+            int blueBrightness = json.getInt(getKey(R.string.pref_blue_brightness));
+            int blueContrast = json.getInt(getKey(R.string.pref_blue_contrast));
+            int blueFrequency = json.getInt(getKey(R.string.pref_blue_frequency));
+            int xMoveModifier1 = json.getInt(getKey(R.string.pref_x_move_modifier_1));
+            int xMoveModifier2 = json.getInt(getKey(R.string.pref_x_move_modifier_2));
+            int yMoveModifier1 = json.getInt(getKey(R.string.pref_y_move_modifier_1));
+            int yMoveModifier2 = json.getInt(getKey(R.string.pref_y_move_modifier_2));
+            int xShapeModifier1 = json.optInt(getKey(R.string.pref_x_shape_modifier_1), DEFAULT_X_SHAPE_MODIFIER_1);
+            int xShapeModifier2 = json.optInt(getKey(R.string.pref_x_shape_modifier_2), DEFAULT_X_SHAPE_MODIFIER_2);
+            int yShapeModifier1 = json.optInt(getKey(R.string.pref_y_shape_modifier_1), DEFAULT_Y_SHAPE_MODIFIER_1);
+            int yShapeModifier2 = json.optInt(getKey(R.string.pref_y_shape_modifier_2), DEFAULT_Y_SHAPE_MODIFIER_2);
 
             // only set once we're sure we have the full set of values!
             try {
