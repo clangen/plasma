@@ -10,8 +10,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class Effect {
-    public static final String ACTION_EFFECT_CHANGED = "org.clangen.gfx.plasma.ACTION_SETTINGS_CHANGED";
-
     private final static int R_AMOUNT = 181;
     private final static int R_INTENSITY = 33;
     private final static int R_WAVELENGTH = 140;
@@ -348,6 +346,6 @@ public class Effect {
     }
 
     private void broadcastChanged() {
-        mContext.sendBroadcast(new Intent(ACTION_EFFECT_CHANGED));
+        Plasma.onEffectChanged();
     }
 }

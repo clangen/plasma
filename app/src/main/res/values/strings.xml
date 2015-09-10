@@ -4,15 +4,24 @@
     <string name="wallpaper_name">Plasma</string>
     <string name="wallpaper_description">A configurable plasma generator.</string>
     <string name="settings_activity_title">Plasma Settings</string>
+    <string name="help_activity_title">Plasma</string>
 
-    <string name="button_close_app">close</string>
+    <string name="button_close_app">use these settings</string>
     <string name="button_effect_library">load</string>
     <string name="button_effect_builder">back to editor</string>
     <string name="button_load_defaults">reset</string>
-    <string name="button_save">save</string>
+    <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
+    <string name="button_open_wallpaper_picker">open wallpaper picker</string>
+    <string name="button_open_settings">show plasma settings</string>
+    <string name="button_hide_from_launcher">hide icon from app launcher</string>
+
+    <string name="help_welcome">Thank you for trying the Plasma live wallpaper!</string>
+    <string name="help_what_is">As you may already know, this is not a regular app &#8212; it\'s a wallpaper! That means it works a little differently. If you want see Plasma on your home screen, you need to set it as your wallpaper. Press the button below, and select \"Plasma\" from the list to get up and running.</string>
+    <string name="help_play_with_settings">You\'re also welcome to play around with things first. Click below if you want to kick the tires. This will NOT activate the wallpaper on your home screen.</string>
+    <string name="help_hide_icon">We also realize you may not want the Plasma icon cluttering up your launcher, so you can press the button below to hide it. Note: you may have to reboot before the icon disappears.</string>
 
     <string name="label_size">base size</string>
     <string name="label_movement">movement:</string>

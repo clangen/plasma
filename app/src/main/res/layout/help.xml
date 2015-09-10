@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <SurfaceView
+        android:id="@+id/SurfaceView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <ScrollView
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#88000000">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/welcome"
+                android:text="@string/help_welcome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/what_is"
+                android:text="@string/help_what_is"
+                android:layout_below="@id/welcome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/OpenPickerButton"
+                android:layout_below="@id/what_is"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/button_open_wallpaper_picker"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/play_with_settings"
+                android:text="@string/help_play_with_settings"
+                android:layout_below="@id/OpenPickerButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/SettingsButton"
+                android:layout_below="@id/play_with_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/button_open_settings"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/hide_from_launcher"
+                android:text="@string/help_hide_icon"
+                android:layout_below="@id/SettingsButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/HideButton"
+                android:layout_below="@id/hide_from_launcher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/button_hide_from_launcher"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</FrameLayout>

@@ -85,17 +85,12 @@ public class PlasmaService extends WallpaperService {
                 new IntentFilter(SettingsActivity.ACTION_SETTINGS_FINISHED));
 
             registerReceiver(
-                mOnEffectChangedReceiver,
-                new IntentFilter(Effect.ACTION_EFFECT_CHANGED));
-
-            registerReceiver(
                 mOnSettingsPriorityChangedReceiver,
                 new IntentFilter(SettingsActivity.ACTION_SETTINGS_PRIORITY_CHANGED));
         }
 
         private void unregisterReceivers() {
             unregisterReceiver(mOnSettingsFinishedReceiver);
-            unregisterReceiver(mOnEffectChangedReceiver);
             unregisterReceiver(mOnSettingsPriorityChangedReceiver);
         }
 
@@ -106,13 +101,6 @@ public class PlasmaService extends WallpaperService {
             Plasma.setThreadPriority(
                 lowPriority ? Thread.MIN_PRIORITY : Thread.NORM_PRIORITY);
         }
-
-        private BroadcastReceiver mOnEffectChangedReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Plasma.onEffectChanged();
-            }
-        };
 
         private BroadcastReceiver mOnSettingsFinishedReceiver = new BroadcastReceiver() {
             @Override
