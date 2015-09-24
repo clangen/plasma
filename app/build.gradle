@@ -14,8 +14,8 @@ android {
         applicationId "org.clangen.gfx.plasma"
         minSdkVersion 16
         targetSdkVersion 16
-        versionCode 32
-        versionName "1.1.0"
+        versionCode 33
+        versionName "1.1.1"
     }
 
     signingConfigs {
