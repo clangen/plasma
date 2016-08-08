@@ -1,19 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 16
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 24
+    buildToolsVersion "23.0.3"
 
     sourceSets {
         main {
-            jniLibs.srcDirs = ['jni']
+            jniLibs.srcDirs = ['src/main/libs']
         }
     }
 
     defaultConfig {
         applicationId "org.clangen.gfx.plasma"
         minSdkVersion 16
-        targetSdkVersion 16
+        targetSdkVersion 24
         versionCode 33
         versionName "1.1.1"
     }
@@ -29,8 +29,10 @@ android {
 
     buildTypes {
         debug {
-
+            minifyEnabled false
+            jniDebuggable true
         }
+
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
