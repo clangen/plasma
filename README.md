@@ -14,3 +14,13 @@ NDK_PROJECT_PATH=~/src/plasma-android/app/src/main/ ./ndk-build
 ```
 
 then, compile the app by opening Android Studio and building the project.
+
+## screenshots
+
+![screenshot 1](https://raw.githubusercontent.com/clangen/clangen-projects-static/master/plasma/screenshots/plasma01.png)
+![screenshot 2](https://raw.githubusercontent.com/clangen/clangen-projects-static/master/plasma/screenshots/plasma02.png)
+![screenshot 3](https://raw.githubusercontent.com/clangen/clangen-projects-static/master/plasma/screenshots/plasma03.png)
+![screenshot 4](https://raw.githubusercontent.com/clangen/clangen-projects-static/master/plasma/screenshots/plasma04.png)
+![screenshot 5](https://raw.githubusercontent.com/clangen/clangen-projects-static/master/plasma/screenshots/plasma05.png)
+![screenshot 6](https://raw.githubusercontent.com/clangen/clangen-projects-static/master/plasma/screenshots/plasma06.png)
+
